@@ -3,10 +3,8 @@ name: Build Image for CI
 on:
   push:
     branches: ['test-actions']
-    paths: ['ci', '.github']
   pull_request:
     branches: ['test-actions']
-    paths: ['ci', '.github']
 
 env:
   REGISTRY: ghcr.io
