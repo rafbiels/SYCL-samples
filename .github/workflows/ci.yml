@@ -47,7 +47,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'test-actions') }}
+            # set latest tag for the main branch
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }},priority=5000
+            # use ref_name in all other cases
+            type=raw,value=${{github.ref_name}},priority=4000
       - 
         if: steps.changes.outputs.container == 'true'
         name: Build and push
@@ -62,7 +65,7 @@ jobs:
     needs: build-container
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/rafbiels/sycl-samples
+      image: ghcr.io/rafbiels/sycl-samples:${{ github.ref == 'refs/heads/main' && 'latest' || github.ref_name }}
       credentials:
          username: ${{ github.actor }}
          password: ${{ secrets.github_token }}
