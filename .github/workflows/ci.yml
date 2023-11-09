@@ -83,4 +83,4 @@ jobs:
           -DENABLE_SPIR=ON -DENABLE_CUDA=OFF -DENABLE_HIP=OFF
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build
+        run: cmake --build ${{github.workspace}}/build -- -j2
