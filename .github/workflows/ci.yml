@@ -15,6 +15,9 @@ jobs:
   build-container:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v4
       -
         name: Path filter
         uses: dorny/paths-filter@v2
@@ -64,7 +67,8 @@ jobs:
          username: ${{ github.actor }}
          password: ${{ secrets.github_token }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           submodules: "recursive"
 
