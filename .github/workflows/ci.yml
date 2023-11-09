@@ -23,10 +23,10 @@ jobs:
         uses: dorny/paths-filter@v2
         id: changes
         with:
+          base: ${{ github.ref_name }}
           filters: |
             container:
-              - 'ci/**'
-              - '.github/workflows/**'
+              - 'ci/Dockerfile'
       -
         if: steps.changes.outputs.container == 'true'
         name: Set up Docker Buildx
@@ -62,7 +62,7 @@ jobs:
     needs: build-container
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}
+      image: ghcr.io/rafbiels/sycl-samples
       credentials:
          username: ${{ github.actor }}
          password: ${{ secrets.github_token }}
