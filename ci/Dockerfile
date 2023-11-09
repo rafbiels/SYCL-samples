@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 # Get basic dependencies from Ubuntu repositories
-RUN apt update && apt -y install wget gpg cmake \
+RUN apt update && apt -y install wget gpg git cmake \
     gcc-12 libstdc++-12-dev libsdl2-dev \
     && apt clean
 
