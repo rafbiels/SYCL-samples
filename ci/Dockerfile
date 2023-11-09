@@ -13,10 +13,16 @@ RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
 
 # Install DPC++
 RUN apt update && apt -y install intel-oneapi-compiler-dpcpp-cpp-2023.2.1 \
-    && apt clean \
-    && echo "source /opt/intel/oneapi/setvars.sh --include-intel-llvm" >> /root/.bashrc
+    && apt clean
+
+# Set up the environment
+ENV ONEAPI_ROOT=/opt/intel/oneapi
+ENV CMPLR_ROOT=${ONEAPI_ROOT}/compiler/latest
+ENV PATH=${CMPLR_ROOT}/linux/bin-llvm:${CMPLR_ROOT}/linux/bin/intel64:${CMPLR_ROOT}/linux/bin:${PATH}
+ENV CPATH=${CMPLR_ROOT}/linux/include:${CMPLR_ROOT}/linux/compiler/include:${CPATH}
+ENV LIBRARY_PATH=${CMPLR_ROOT}/linux/lib:${CMPLR_ROOT}/linux/lib/x64:${CMPLR_ROOT}/linux/compiler/lib/intel64:${LIBRARY_PATH}
+ENV LD_LIBRARY_PATH=${CMPLR_ROOT}/linux/lib:${CMPLR_ROOT}/linux/lib/x64:${CMPLR_ROOT}/linux/compiler/lib/intel64:${LD_LIBRARY_PATH}
 
 # Set up entry point
 ENTRYPOINT []
 CMD /bin/bash
-
