@@ -510,7 +510,7 @@ class NBodyApp : public Magnum::Platform::Application {
                 "Radius", &m_ui_distrib_sphere_params.min_radius,
                 &m_ui_distrib_sphere_params.max_radius, 0.1f, 0.0f, 100.0f);
 
-            if (ImGui::Button("Initialize from distribution")) {
+            if (ImGui::Button("Initialise from distribution")) {
               m_ui_initialize = true;
             }
 
